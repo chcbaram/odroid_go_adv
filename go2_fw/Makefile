@@ -52,7 +52,8 @@ all: build
 build: $(ALLOBJ)
 	gcc $(CFLAGS) $(USERCFLAGS) $(ALLOBJ) --output $(TARGET) $(LDFLAGS) $(LIBS)
 
-
+run: all
+	./main
 
 # Compile: create object files from C source files.
 define COMPILE_C_TEMPLATE

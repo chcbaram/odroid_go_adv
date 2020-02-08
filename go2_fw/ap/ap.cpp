@@ -51,7 +51,6 @@ void apMain(void)
       y %= lcdGetHeight();
 
       lcdRequestDraw();
-      logPrintf("test\n");
     }
   }
 }
