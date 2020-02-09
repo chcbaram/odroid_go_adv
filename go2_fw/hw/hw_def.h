@@ -21,7 +21,7 @@ extern void delay(uint32_t ms);
 #define      HW_LCD_HEIGHT          320
 
 #define _USE_HW_BUTTON
-#define      HW_BUTTON_MAX_CH       10
+#define      HW_BUTTON_MAX_CH       16
 
 #define _USE_HW_ADC
 #define      HW_ADC_MAX_CH          2
@@ -32,18 +32,32 @@ extern void delay(uint32_t ms);
 
 
 
-#define _DEF_HW_BTN_A               0
-#define _DEF_HW_BTN_B               1
-#define _DEF_HW_BTN_SELECT          2
-#define _DEF_HW_BTN_START           3
-#define _DEF_HW_BTN_MENU            4
-#define _DEF_HW_BTN_HOME            5
-#define _DEF_HW_BTN_LEFT            6
-#define _DEF_HW_BTN_RIGHT           7
-#define _DEF_HW_BTN_UP              8
-#define _DEF_HW_BTN_DOWN            9
+#define _DEF_HW_BTN_LEFT            0
+#define _DEF_HW_BTN_RIGHT           1
+#define _DEF_HW_BTN_UP              2
+#define _DEF_HW_BTN_DOWN            3
 
+#define _DEF_HW_BTN_A               4
+#define _DEF_HW_BTN_B               5
+#define _DEF_HW_BTN_X               6
+#define _DEF_HW_BTN_Y               7
 
+#define _DEF_HW_BTN_L1              8
+#define _DEF_HW_BTN_R1              9
+
+#define _DEF_HW_BTN_MENU            10
+#define _DEF_HW_BTN_HOME            11
+
+#define _DEF_HW_BTN_SELECT          12
+#define _DEF_HW_BTN_START           13
+
+#define _DEF_HW_BTN_F5              14
+#define _DEF_HW_BTN_F6              15
+
+#define _DEF_HW_BTN_F1              10
+#define _DEF_HW_BTN_F2              11
+#define _DEF_HW_BTN_F3              12
+#define _DEF_HW_BTN_F4              13
 
 
 

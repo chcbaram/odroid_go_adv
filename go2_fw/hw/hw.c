@@ -10,9 +10,9 @@ void hwInit(void)
   millisInit();
 
   //ledInit();
-  //adcInit();
-  //joypadInit();
-  //buttonInit();
+  //adcInit();  
+  buttonInit();
+  joypadInit();
 
 
 
@@ -22,4 +22,9 @@ void hwInit(void)
 
   //speakerInit();
   lcdInit();
+}
+
+void hwDeInit(void)
+{
+  buttonDeInit();
 }

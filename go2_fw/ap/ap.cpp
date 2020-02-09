@@ -31,7 +31,14 @@ void apMain(void)
       pre_time = millis();
       //logPrintf("X : %d\n", (int)joypadGetX());
       //logPrintf("Y : %d\n", (int)joypadGetY());
+
+      for (int i=0; i<BUTTON_MAX_CH; i++)
+      {
+        logPrintf("%d", buttonGetPressed(i));
+      }
+      logPrintf("\n");      
     }
+
     if (lcdDrawAvailable() > 0)
     {
       lcdClearBuffer(black);

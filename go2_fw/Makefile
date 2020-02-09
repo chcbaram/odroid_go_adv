@@ -9,10 +9,13 @@ SRC_HW = \
 	hw/hw.c \
 	hw/driver/libgo2/display.c \
 	hw/driver/libgo2/queue.c \
+	hw/driver/libgo2/input.c \
 	hw/driver/millis.c \
 	hw/driver/delay.c \
 	hw/driver/hangul/PHan_Lib.c \
 	hw/driver/lcd.c \
+	hw/driver/button.c \
+	hw/driver/joypad.c \
 
 SRC_FILES = \
 	main.cpp	\
@@ -42,7 +45,7 @@ ALLOBJ = $(addsuffix .o, $(ALLSRCBASE))
 
 
 USERCFLAGS = -O0
-LDFLAGS = -lEGL -lpthread -lrga -ldrm -lpng -lgbm
+LDFLAGS = -lEGL -lpthread -lrga -ldrm -lpng -lgbm -levdev
 
 
 all: build

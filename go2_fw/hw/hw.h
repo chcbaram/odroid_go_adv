@@ -12,14 +12,13 @@ extern "C" {
 #include "delay.h"
 #include "millis.h"
 #include "lcd.h"
-//#include "button.h"
-//#include "adc.h"
-//#include "joypad.h"
+#include "button.h"
+#include "joypad.h"
 //#include "speaker.h"
 
 
 void hwInit(void);
-
+void hwDeInit(void);
 
 #ifdef __cplusplus
 }

@@ -20,10 +20,7 @@ bool delayInit(void)
 
 void delay(uint32_t ms)
 {
-  uint32_t pre_time;
-
-  pre_time = millis();
-  while(millis()-pre_time >= ms);
+  usleep(ms * 1000);
 }
 
 void delayNs(uint32_t ns)
