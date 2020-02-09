@@ -44,6 +44,15 @@ static go2_display_t  *display;
 static go2_presenter_t*presenter;
 static go2_surface_t  *fbsurface;
 
+static int32_t src_x = 0;
+static int32_t src_y = 0;
+static int32_t src_w = HW_LCD_WIDTH;
+static int32_t src_h = HW_LCD_HEIGHT;
+
+static int32_t dst_x = 0;
+static int32_t dst_y = 0;
+static int32_t dst_w = HW_LCD_WIDTH;
+static int32_t dst_h = HW_LCD_HEIGHT;
 
 
 void lcdSwapFrameBuffer(void);
@@ -63,8 +72,8 @@ void *lcdThread(void *arg)
 
     go2_presenter_post( presenter,
                         fbsurface,
-                        0, 0, HW_LCD_WIDTH, HW_LCD_HEIGHT,
-                        0, 0, HW_LCD_HEIGHT, HW_LCD_WIDTH,
+                        src_x, src_y, src_w, src_h,
+                        dst_y, dst_x, dst_h, dst_w,
                         GO2_ROTATION_DEGREES_270);
 
     fps_time = millis()-fps_pre_time;
@@ -226,6 +235,23 @@ void lcdSetWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   
 }
+
+void lcdSetSrcWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+{
+  src_x = x;
+  src_y = y;
+  src_w = w;
+  src_h = h;    
+}
+
+void lcdSetDstWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
+{
+  dst_x = x;
+  dst_y = y;
+  dst_w = w;
+  dst_h = h;      
+}
+
 
 void lcdSwapFrameBuffer(void)
 {

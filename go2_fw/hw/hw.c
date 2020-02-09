@@ -6,7 +6,8 @@
 void hwInit(void)
 {
 
-  //delayInit();
+  delayInit();
+  microsInit();
   millisInit();
 
   //ledInit();

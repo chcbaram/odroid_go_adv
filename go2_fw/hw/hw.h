@@ -10,6 +10,7 @@ extern "C" {
 #include "hw_def.h"
 
 #include "delay.h"
+#include "micros.h"
 #include "millis.h"
 #include "lcd.h"
 #include "button.h"

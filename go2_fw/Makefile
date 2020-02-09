@@ -7,11 +7,13 @@ SRC_AP = \
 
 SRC_HW = \
 	hw/hw.c \
+	hw/core/resize.c \
 	hw/driver/libgo2/display.c \
 	hw/driver/libgo2/queue.c \
 	hw/driver/libgo2/input.c \
 	hw/driver/libgo2/audio.c \
 	hw/driver/millis.c \
+	hw/driver/micros.c \
 	hw/driver/delay.c \
 	hw/driver/hangul/PHan_Lib.c \
 	hw/driver/lcd.c \
@@ -19,10 +21,43 @@ SRC_HW = \
 	hw/driver/joypad.c \
 	hw/driver/speaker.c \
 
+SRC_GNUBOY = \
+	ap/gnuboy/cpu.c \
+	ap/gnuboy/debug.c \
+	ap/gnuboy/emu.c \
+	ap/gnuboy/events.c \
+	ap/gnuboy/exports.c \
+	ap/gnuboy/fastmem.c \
+	ap/gnuboy/hw_.c \
+	ap/gnuboy/inflate.c \
+	ap/gnuboy/keytable.c \
+	ap/gnuboy/lcd_.c \
+	ap/gnuboy/lcdc.c \
+	ap/gnuboy/loader.c \
+	ap/gnuboy/main_.c \
+	ap/gnuboy/mem.c \
+	ap/gnuboy/newsound.c \
+	ap/gnuboy/palette.c \
+	ap/gnuboy/path.c \
+	ap/gnuboy/rccmds.c \
+	ap/gnuboy/rcfile.c \
+	ap/gnuboy/rckeys.c \
+	ap/gnuboy/rcvars.c \
+	ap/gnuboy/refresh.c \
+	ap/gnuboy/rtc.c \
+	ap/gnuboy/save.c \
+	ap/gnuboy/sound.c \
+	ap/gnuboy/split.c \
+	ap/gnuboy/sys/orocaboy/filer.c \
+	ap/gnuboy/sys/orocaboy/orocaboy.c \
+
+
+
 SRC_FILES = \
 	main.cpp	\
 	$(SRC_AP) \
 	$(SRC_HW) \
+	$(SRC_GNUBOY) \
 
 
  INC_DIRS =	-I. \
@@ -34,7 +69,7 @@ SRC_FILES = \
 	-I/usr/include/libdrm \
 
 
-CFLAGS = 
+CFLAGS = -DGNUBOY_NO_MINIZIP -DGNUBOY_NO_SCREENSHOT -DIS_LITTLE_ENDIAN
 LIBS = 
 
 
@@ -47,7 +82,7 @@ ALLOBJ = $(addsuffix .o, $(ALLSRCBASE))
 
 
 USERCFLAGS = -O0
-LDFLAGS = -lEGL -lpthread -lrga -ldrm -lpng -lgbm -levdev -lopenal -lasound
+LDFLAGS = -lEGL -lpthread -lrga -ldrm -lpng -lgbm -levdev -lopenal -lasound -lm
 
 
 all: build

@@ -6,13 +6,14 @@
 
 
 extern uint32_t millis(void);
+extern uint32_t micros(void);
 extern void delay(uint32_t ms);
 
 
 
 #define _USE_HW_DELAY
 #define _USE_HW_MILLIS
-
+#define _USE_HW_MICROS
 
 
 

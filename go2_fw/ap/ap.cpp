@@ -11,16 +11,25 @@
 #include "ap.h"
 
 
+extern "C"
+{
+void gnuboyMain (void);
+}
+
+
 
 void apInit(void)
 {
   hwInit();
+
+  gnuboyMain();
 }
 
 
 void apMain(void)
 {
   uint32_t pre_time;
+  uint32_t pre_time2;
   uint16_t x = 0;
   uint16_t y = 0;
 
@@ -36,7 +45,7 @@ void apMain(void)
       {
         logPrintf("%d", buttonGetPressed(i));
       }
-      logPrintf("\n");      
+      logPrintf("\n");    
     }
 
     if (lcdDrawAvailable() > 0)

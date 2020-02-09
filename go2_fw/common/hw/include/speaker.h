@@ -31,7 +31,7 @@ uint32_t speakerAvailable(void);
 uint32_t speakerGetBufLength(void);
 void speakerPutch(uint8_t data);
 void speakerWrite(uint8_t *p_data, uint32_t length);
-
+void speakerSubmit(uint16_t *p_data, uint32_t frame_count);
 #endif
 
 
