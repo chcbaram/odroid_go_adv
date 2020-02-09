@@ -10,6 +10,7 @@ SRC_HW = \
 	hw/driver/libgo2/display.c \
 	hw/driver/libgo2/queue.c \
 	hw/driver/libgo2/input.c \
+	hw/driver/libgo2/audio.c \
 	hw/driver/millis.c \
 	hw/driver/delay.c \
 	hw/driver/hangul/PHan_Lib.c \
@@ -45,7 +46,7 @@ ALLOBJ = $(addsuffix .o, $(ALLSRCBASE))
 
 
 USERCFLAGS = -O0
-LDFLAGS = -lEGL -lpthread -lrga -ldrm -lpng -lgbm -levdev
+LDFLAGS = -lEGL -lpthread -lrga -ldrm -lpng -lgbm -levdev -lopenal -lasound
 
 
 all: build
