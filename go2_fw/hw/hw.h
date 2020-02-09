@@ -14,7 +14,7 @@ extern "C" {
 #include "lcd.h"
 #include "button.h"
 #include "joypad.h"
-//#include "speaker.h"
+#include "speaker.h"
 
 
 void hwInit(void);

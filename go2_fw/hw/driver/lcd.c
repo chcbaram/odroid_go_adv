@@ -12,6 +12,9 @@
 #include "hangul/PHan_Lib.h"
 #include "display.h"
 
+#include <pthread.h>
+#include <semaphore.h>
+
 
 #ifndef _swap_int16_t
 #define _swap_int16_t(a, b) { int16_t t = a; a = b; b = t; }
@@ -32,8 +35,9 @@ static uint32_t fps_count = 0;
 static uint16_t *p_draw_frame_buf = NULL;
 static uint16_t frame_buffer[2][HW_LCD_WIDTH * HW_LCD_HEIGHT];
 
-
-
+static pthread_t thread_id;
+static sem_t semaphore;
+static bool terminating = false;
 
 
 static go2_display_t  *display;
@@ -44,6 +48,36 @@ static go2_surface_t  *fbsurface;
 
 void lcdSwapFrameBuffer(void);
 void disHanFont(int x, int y, PHAN_FONT_OBJ *FontPtr, uint16_t textcolor);
+
+
+void *lcdThread(void *arg)
+{
+  while(!terminating)
+  {
+    sem_wait(&semaphore);
+
+    uint16_t* dst = (uint16_t*)go2_surface_map(fbsurface);
+
+
+    memcpy(dst, frame_buffer[frame_index], HW_LCD_WIDTH*HW_LCD_HEIGHT*2);
+
+    go2_presenter_post( presenter,
+                        fbsurface,
+                        0, 0, HW_LCD_WIDTH, HW_LCD_HEIGHT,
+                        0, 0, HW_LCD_HEIGHT, HW_LCD_WIDTH,
+                        GO2_ROTATION_DEGREES_270);
+
+    fps_time = millis()-fps_pre_time;
+    if (fps_time > 0)
+    {
+      fps_count = 1000 / fps_time;
+    }  
+
+    is_requested = false;
+  }  
+  return NULL;
+}
+
 
 
 bool lcdInit(void)
@@ -74,8 +108,18 @@ bool lcdInit(void)
   fbsurface = go2_surface_create(display, HW_LCD_WIDTH, HW_LCD_HEIGHT, DRM_FORMAT_RGB565);
 
 
-  lcdClear(black);
+  if (sem_init(&semaphore, 0, 0) != 0)
+  {
+    logPrintf("could not create sem_init thread\n");
+    return false;
+  }
+  if(pthread_create(&thread_id, NULL, lcdThread, NULL) < 0)
+  {
+    logPrintf("could not create lcdThread thread\n");
+    return false;  
+  }
 
+  lcdClear(black);
   lcdSetBackLight(backlight_value);
   return true;
 }
@@ -152,48 +196,30 @@ bool lcdGetDoubleBuffer(void)
 
 bool lcdDrawAvailable(void)
 {
-  //return ili9225DrawAvailable();
-  return true;
+  return !is_requested;
 }
 
 void lcdRequestDraw(void)
 {
-
-  fps_time = millis()-fps_pre_time;
-  if (fps_time > 0)
+  if (is_requested == true)
   {
-    fps_count = 1000 / fps_time;
-  }  
+    return;
+  }
+
   fps_pre_time = millis();
 
 
   lcdSwapFrameBuffer();
 
   is_requested = true;
-
-  lcdUpdateDraw();
+  sem_post(&semaphore);
 }
 
 void lcdUpdateDraw(void)
 {
-  if (is_requested != true)
-  {
-    lcdRequestDraw();
-  }
+  lcdRequestDraw();
 
-
-  uint16_t* dst = (uint16_t*)go2_surface_map(fbsurface);
-
-
-  memcpy(dst, frame_buffer[frame_index], HW_LCD_WIDTH*HW_LCD_HEIGHT*2);
-
-  go2_presenter_post( presenter,
-                      fbsurface,
-                      0, 0, HW_LCD_WIDTH, HW_LCD_HEIGHT,
-                      0, 0, HW_LCD_HEIGHT, HW_LCD_WIDTH,
-                      GO2_ROTATION_DEGREES_270);
-
-  //while(lcdDrawAvailable() != true);
+  while(lcdDrawAvailable() != true);
 }
 
 void lcdSetWindow(uint16_t x, uint16_t y, uint16_t w, uint16_t h)

@@ -20,7 +20,7 @@ void hwInit(void)
   logPrintf("Start...\r\n");
 
 
-  //speakerInit();
+  speakerInit();
   lcdInit();
 }
 

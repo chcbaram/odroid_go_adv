@@ -17,6 +17,7 @@ SRC_HW = \
 	hw/driver/lcd.c \
 	hw/driver/button.c \
 	hw/driver/joypad.c \
+	hw/driver/speaker.c \
 
 SRC_FILES = \
 	main.cpp	\

@@ -50,7 +50,7 @@ void apMain(void)
 
       lcdDrawFillRect(x, 32, 30, 30, red);
       lcdDrawFillRect(lcdGetWidth()-x, 62, 30, 30, green);
-      lcdDrawFillRect(x + 30, 92, 30, 30, blue);
+      lcdDrawFillRect(x + 30, 92, 100, 100, blue);
 
       x += 4;
 
